@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const Icecream = require("./models/icecream");
+
 let url;
 if (process.env.NODE_ENV === "production") {
   url = process.env.DB_URL;
@@ -7,7 +9,10 @@ if (process.env.NODE_ENV === "production") {
   url = process.env.TEST_DB_URL;
 }
 
-mongoose.connect(url);
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
