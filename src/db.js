@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const Icecream = require("./models/icecream");
-
 let url;
 if (process.env.NODE_ENV === "production") {
   url = process.env.DB_URL;
