@@ -4,7 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 require("./db");
 
-const Icecream = require("./models/icecream");
+// Routes
+const menuRouter = require("./routes/menuRouter");
 
 const app = express();
 const logger = morgan("dev");
@@ -15,13 +16,14 @@ app.use(cors());
 app.use(logger);
 app.use(express.json());
 
-app.use("/", async (req, res, next) => {
-  const result = await Icecream.saveDocs({
-    rank: "1위",
-    imgurl: "aaa",
-    name: "aaa",
-  });
-  return res.json(result);
+app.use("/api", menuRouter);
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  const errorStatus = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  return res.status(errorStatus).json({ message, data });
 });
 
 app.listen(PORT, () => {
