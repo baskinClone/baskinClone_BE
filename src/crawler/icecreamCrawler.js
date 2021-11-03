@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 require("dotenv").config();
-require("./db");
+require("../db");
 
-const Icecream = require("./models/icecream");
+const Icecream = require("../models/icecream");
 
 const crawler = async () => {
   const monthlyBest = [];
@@ -18,7 +18,7 @@ const crawler = async () => {
     // Monthly best icecream 크롤링
     for (let i = 1; i <= 10; i++) {
       const bestIcecreams = {};
-      bestIcecreams.rate = await page.$eval(
+      bestIcecreams.rank = await page.$eval(
         `#slider > div > ul > li:nth-child(${i}) > a > div > strong`,
         (el) => {
           return el.textContent;
@@ -138,6 +138,7 @@ const crawler = async () => {
 
 const save = async () => {
   const docs = await crawler();
+  console.log(docs);
   await Icecream.saveDocs(docs);
 };
 
