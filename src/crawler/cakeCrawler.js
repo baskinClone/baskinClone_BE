@@ -51,6 +51,22 @@ const crawler = async () => {
         return el.textContent;
       }
     );
+    icecreams.imgUrl = await page.$eval(
+      `#prd_list > aside > ul > li > a > figure > span > img`,
+      (el) => {
+        return el.src;
+      }
+    );
+    icecreams.hashtags = await page.$$eval(
+      `li:nth-child(1) > div.hashbox > div > div > ul > li`,
+      (elArr) => {
+        const array = [];
+        for (let el of elArr) {
+          array.push(el.textContent.trim());
+        }
+        return array;
+      }
+    );
     cakes.push(icecreams);
     await page.close();
     await browser.close();
