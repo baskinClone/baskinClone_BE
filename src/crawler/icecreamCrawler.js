@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 require("dotenv").config();
-require("./db");
+require("../db");
 
-const Icecream = require("./models/icecream");
+const Icecream = require("../models/icecream");
 
 const crawler = async () => {
   const monthlyBest = [];
