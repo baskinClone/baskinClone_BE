@@ -6,7 +6,6 @@ const cakeSchema = new mongoose.Schema({
 
 cakeSchema.statics.saveDocs = async function (docs) {
   try {
-    console.log(this);
     await mongoose.connection.dropCollection("cakes");
     await this.insertMany(docs);
   } catch (error) {

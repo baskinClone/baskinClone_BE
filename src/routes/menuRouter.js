@@ -1,10 +1,14 @@
 const express = require("express");
 
 // Controllers
-const { getIcecreamData } = require("../controllers/icecreamController");
+const {
+  getIcecreamData,
+  getCakeData,
+} = require("../controllers/menuController");
 
 const router = express.Router();
 
 router.get("/getIcecream", getIcecreamData);
+router.get("/getCake", getCakeData);
 
 module.exports = router;
