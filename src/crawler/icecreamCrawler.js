@@ -24,6 +24,16 @@ const crawler = async () => {
           return el.textContent;
         }
       );
+      const rankLabelUrl = await page.$eval(
+        `#slider > div > ul > li:nth-child(${i}) > a > div`,
+        (el) => {
+          return window.getComputedStyle(el, ":before").backgroundImage;
+        }
+      );
+      bestIcecreams.rankLabelUrl = rankLabelUrl.substring(
+        5,
+        rankLabelUrl.length - 2
+      );
       bestIcecreams.imgUrl = await page.$eval(
         `#slider > div > ul > li:nth-child(${i}) > a > div > span > img`,
         (el) => {

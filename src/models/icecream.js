@@ -4,6 +4,7 @@ const icecreamSchema = new mongoose.Schema({
   monthlyBest: [
     {
       rank: String,
+      rankLabelUrl: String,
       imgUrl: String,
       name: String,
     },
