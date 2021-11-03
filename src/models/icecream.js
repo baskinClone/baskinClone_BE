@@ -1,21 +1,16 @@
 const mongoose = require("mongoose");
 
 const icecreamSchema = new mongoose.Schema({
-  monthlyBest: [
-    {
-      rank: String,
-      rankLabelUrl: String,
-      imgUrl: String,
-      name: String,
-    },
-  ],
-  icecreams: [{ name: String, imgUrl: String, hashtags: [String] }],
+  name: { type: String },
+  imgUrl: { type: String },
+  coneUrl: { type: String },
+  hashtags: [{ type: String }],
 });
 
 icecreamSchema.statics.saveDocs = async function (docs) {
   try {
     await mongoose.connection.dropCollection("icecreams");
-    await this.insertMany(docs);
+    await this.insertMany(docs, { ordered: false });
   } catch (error) {
     console.log(error);
   }

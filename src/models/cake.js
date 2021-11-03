@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
 const cakeSchema = new mongoose.Schema({
-  cakes: [{ name: String, imgUrl: String, hashtags: [String] }],
+  name: { type: String },
+  imgUrl: { type: String },
+  hashtags: [{ type: String }],
 });
 
 cakeSchema.statics.saveDocs = async function (docs) {
   try {
+    console.log(docs);
     await mongoose.connection.dropCollection("cakes");
-    await this.insertMany(docs);
+    await this.insertMany(docs, { ordered: false });
   } catch (error) {
     console.log(error);
   }
