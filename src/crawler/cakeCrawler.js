@@ -54,7 +54,7 @@ const crawler = async () => {
     cakes.push(icecreams);
     await page.close();
     await browser.close();
-    return { cakes: cakes };
+    return cakes;
   } catch (error) {
     console.log(error);
   }
