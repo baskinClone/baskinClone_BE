@@ -5,6 +5,6 @@ const { getIcecreamData } = require("../controllers/icecreamController");
 
 const router = express.Router();
 
-router.get("/getIcecreamData", getIcecreamData);
+router.get("/getIcecream", getIcecreamData);
 
 module.exports = router;
