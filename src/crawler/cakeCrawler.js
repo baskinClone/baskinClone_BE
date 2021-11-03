@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
-// require("../db");
-// require("dotenv").config();
+require("dotenv").config();
+require("../db");
 
 const Cake = require("../models/cake");
 
@@ -13,7 +13,7 @@ const crawler = async () => {
       waitUntil: "networkidle2",
     });
     await page.waitForSelector("#prd_list > aside > ul");
-    const cake = [];
+    const cakes = [];
     for (let i = 1; i <= 20; i++) {
       const icecreams = {};
       icecreams.name = await page.$eval(
@@ -38,7 +38,7 @@ const crawler = async () => {
           return array;
         }
       );
-      cake.push(icecreams);
+      cakes.push(icecreams);
     }
     await page.click("#content > nav > ul > li:nth-child(3) > a");
     await page.waitFor(3000);
@@ -51,18 +51,18 @@ const crawler = async () => {
         return el.textContent;
       }
     );
-    cake.push(icecreams);
+    cakes.push(icecreams);
     await page.close();
     await browser.close();
-    return cake;
+    return { cakes: cakes };
   } catch (error) {
     console.log(error);
   }
 };
 
 const save = async () => {
-  const cake = await crawler();
-  await Cake.saveDocs(cake);
+  const docs = await crawler();
+  await Cake.saveDocs(docs);
 };
 
 save();
