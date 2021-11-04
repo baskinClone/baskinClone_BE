@@ -2,6 +2,7 @@ const BestIce = require("../models/bestIce");
 const Icecream = require("../models/icecream");
 const Cake = require("../models/cake");
 const Beverage = require("../models/beverage");
+const Coffee = require("../models/coffee");
 
 exports.getIcecreamData = async (req, res, next) => {
   const currentPage = req.query.page || 1;
@@ -54,6 +55,24 @@ exports.getBeverageData = async (req, res, next) => {
       return res.status(406).json({ ok: false, message: "No data" });
     }
     return res.status(200).json({ ok: true, data: data });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+exports.getCoffee = async (req, res, next) => {
+  try {
+    const coffee = await Coffee.find(
+      {},
+      { _id: 0, name: 1, hashtags: 1, imgUrl: 1 }
+    );
+    if (!coffee) {
+      return res.status(406).json({ ok: false, message: "No data" });
+    }
+    return res.status(200).json({ ok: true, data: coffee });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
