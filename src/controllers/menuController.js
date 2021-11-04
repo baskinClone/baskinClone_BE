@@ -1,6 +1,7 @@
 const BestIce = require("../models/bestIce");
 const Icecream = require("../models/icecream");
 const Cake = require("../models/cake");
+const Beverage = require("../models/beverage");
 
 exports.getIcecreamData = async (req, res, next) => {
   const currentPage = req.query.page || 1;
@@ -34,6 +35,21 @@ exports.getCakeData = async (req, res, next) => {
     )
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
+    if (!data) {
+      return res.status(406).json({ ok: false, message: "No data" });
+    }
+    return res.status(200).json({ ok: true, data: data });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+exports.getBeverageData = async (req, res, next) => {
+  try {
+    const data = await Beverage.find({}, { _id: 0 });
     if (!data) {
       return res.status(406).json({ ok: false, message: "No data" });
     }
