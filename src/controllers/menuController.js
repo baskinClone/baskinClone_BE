@@ -31,7 +31,9 @@ exports.getCakeData = async (req, res, next) => {
   const currentPage = req.query.page || 1;
   const perPage = 20;
   try {
-    const data = await Icecream.find({}, { _id: 0 });
+    const data = await Cake.find({}, { _id: 0 })
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
     if (!data) {
       return res.status(406).json({ ok: false, message: "No data" });
     }
