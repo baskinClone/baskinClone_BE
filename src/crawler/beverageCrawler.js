@@ -22,7 +22,7 @@ getHTML()
 
     $bodyList.each(function (i, elem) {
       list.push({
-        title: $(this).find("span").text(),
+        title: $(this).find("span:eq(0)").text(),
         hashtags: $(this).find("div.hashtag > ul > li > a").text(),
         imgUrl:
           "http://www.baskinrobbins.co.kr" +

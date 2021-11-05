@@ -8,7 +8,6 @@ const beverageSchema = new mongoose.Schema({
 
 beverageSchema.statics.saveDocs = async function (docs) {
   try {
-    console.log(docs);
     await mongoose.connection.dropCollection("beverages");
     await this.insertMany(docs, { ordered: false });
   } catch (err) {
